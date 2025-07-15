@@ -1,0 +1,31 @@
+.shiny-text {
+  color: #8b7500a4; /* colore base più scuro e dorato */
+  background: linear-gradient(
+    120deg,
+    #ffffff,   /* Oro scuro */
+    #fac721,   /* Oro vivido */
+    #ffd642,   /* Oro brillante */
+    #ffffff,
+    #faebc4    /* Oro metallizzato scuro */
+  );
+  background-size: 200% 100%;
+  font-size: 1.3rem;
+  font-weight: bolder;
+  -webkit-background-clip: text;
+  background-clip: text;
+  display: inline-block;
+  animation: shine 5s linear infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: -100%;
+  }
+}
+
+.shiny-text.disabled {
+  animation: none;
+}
