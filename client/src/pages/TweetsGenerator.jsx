@@ -61,7 +61,7 @@ function TweetsGenerator() {
         setError(null);
 
         try {
-            const response = await fetch('https://zazaza-5.onrender.com/tweets', {
+            const response = await fetch('https://zazaza-6.onrender.com/tweets', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
