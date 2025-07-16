@@ -52,7 +52,7 @@ function MemeGenerator() {
         setPromptUsed('');
 
         try {
-            const response = await fetch(`https://zazaza-4.onrender.com/meme-generator/`, {
+            const response = await fetch(`https://zazaza-5.onrender.com/meme-generator/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
