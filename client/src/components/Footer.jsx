@@ -4,7 +4,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import { Link } from 'react-router-dom';
 import COLORS from '../palettes';
-import ChartData from './ChartData';
+//import ChartData from './ChartData';
 
 const Footer = () => {
   return (
@@ -57,7 +57,8 @@ const Footer = () => {
         </Grid>
 
         <Divider sx={{ backgroundColor: COLORS.subtext, opacity: 0.2, my: 2 }} />
-        <ChartData />
+        {/*<ChartData />*/}
+        CHART DATA
 
         <Typography variant="caption" align="center" sx={{ color: COLORS.subtext, display: 'block',mt:5 }}>
           © {new Date().getFullYear()} $ZZZSHR. All rights reserved.

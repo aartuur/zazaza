@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+/*import React, { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { CandlestickSeries, createChart } from 'lightweight-charts';
 import dotenv from "dotenv"
 dotenv.config()
 
-const API_KEY = process.env.API_KEY
+const API_KEY = process.env.REACT_APP_API_KEY
+
 const ChartData = () => {
     const chartContainerRef = useRef();
 
@@ -78,3 +79,4 @@ const ChartData = () => {
 };
 
 export default ChartData;
+*/
