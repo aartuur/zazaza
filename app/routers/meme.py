@@ -2,8 +2,7 @@ import os
 import time
 import logging
 import requests
-import aiohttp
-from fastapi import APIRouter, HTTPException, UploadFile, File
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from typing import Optional
@@ -15,7 +14,6 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 openai_api_key = os.getenv("OPENAI_API_KEY")
-stability_api_key = os.getenv("STABILITY_API_KEY")
 
 router = APIRouter()
 
@@ -29,8 +27,8 @@ class MemeImageResponse(BaseModel):
     prompt_used: str
     meme_text: str
 
-STABILITY_API_URL = "https://api.stability.ai/v2beta/stable-image/generate/sd3"
 OPENAI_CHAT_URL = "https://api.openai.com/v1/chat/completions"
+OPENAI_IMAGE_URL = "https://api.openai.com/v1/images/generations"
 
 def generate_meme_text(prompt: str, retries: int = 3, delay: int = 2) -> str:
     headers = {
@@ -67,56 +65,30 @@ def generate_meme_text(prompt: str, retries: int = 3, delay: int = 2) -> str:
 
     raise HTTPException(status_code=429, detail="Troppe richieste a OpenAI")
 
-async def generate_image_with_stability(prompt: str, style: str = "viral") -> str:
+def generate_image_with_dalle(prompt: str, style: str = "viral") -> str:
     headers = {
-        "Authorization": f"Bearer {stability_api_key}",
-        "Accept": "application/json"
+        "Authorization": f"Bearer {openai_api_key}",
+        "Content-Type": "application/json"
     }
 
-    # Configurazione stile
-    style_prompts = {
-        "viral": "stile meme virale, colori vivaci, contrasto alto",
-        "3d": "rendering 3D ultra dettagliato, illuminazione cinematografica",
-        "cinematic": "fotografia cinematografica, profondità di campo, toni drammatici"
+    # OpenAI DALL·E supports prompt-based generation
+    dalle_prompt = f"{prompt}"
+
+    data = {
+        "model": "dall-e-3",
+        "prompt": dalle_prompt,
+        "n": 1,
+        "size": "1024x1024"
     }
-    style_prompt = style_prompts.get(style, style_prompts["viral"])
 
-    full_prompt = f"{prompt}, {style_prompt}, trending on artstation, award winning"
-
-    form_data = aiohttp.FormData()
-    form_data.add_field('prompt', full_prompt)
-    form_data.add_field('model', 'sd3')
-    form_data.add_field('mode', 'text-to-image')
-    form_data.add_field('seed', '0')
-    form_data.add_field('output_format', 'jpeg')
-    form_data.add_field('width', '1024')
-    form_data.add_field('height', '1024')
-
-    async with aiohttp.ClientSession() as session:
-        try:
-            async with session.post(
-                STABILITY_API_URL,
-                headers=headers,
-                data=form_data
-            ) as response:
-                
-                if response.status != 200:
-                    error = await response.text()
-                    logger.error(f"Stability API error: {error}")
-                    raise HTTPException(status_code=500, detail="Errore generazione immagine")
-
-                result = await response.json()
-                
-                if 'image' in result:  # Se ritorna l'immagine direttamente
-                    # Qui dovresti caricare l'immagine su un CDN o storage
-                    # Per semplicità restituiamo un URL fittizio
-                    return "https://example.com/generated_meme.jpg"
-                
-                return result.get("image_url", "")
-                
-        except Exception as e:
-            logger.error(f"Errore connessione Stability API: {str(e)}")
-            raise HTTPException(status_code=500, detail="Errore generazione immagine")
+    try:
+        response = requests.post(OPENAI_IMAGE_URL, headers=headers, json=data)
+        response.raise_for_status()
+        result = response.json()
+        return result['data'][0]['url']
+    except Exception as e:
+        logger.error(f"Errore generazione immagine con DALL·E: {str(e)}")
+        raise HTTPException(status_code=500, detail="Errore generazione immagine")
 
 @router.post("/", response_model=MemeImageResponse)
 async def generate_meme(data: MemeRequest):
@@ -127,7 +99,7 @@ async def generate_meme(data: MemeRequest):
             f"Parole chiave: {', '.join(data.keywords) if data.keywords else 'nessuna'}. "
             f"Massimo 15 parole, stile giovane e virale."
         )
-        
+
         meme_text = generate_meme_text(gpt_prompt)
         logger.info(f"📝 Testo generato: {meme_text}")
 
@@ -140,8 +112,8 @@ async def generate_meme(data: MemeRequest):
             f"adatta a social media come Instagram e TikTok."
         )
 
-        # 3. Genera immagine
-        image_url = await generate_image_with_stability(dalle_prompt, data.style)
+        # 3. Genera immagine con DALL·E
+        image_url = generate_image_with_dalle(dalle_prompt, data.style)
         logger.info(f"🖼️ Immagine generata: {image_url}")
 
         return MemeImageResponse(
