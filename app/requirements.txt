@@ -3,7 +3,4 @@ uvicorn
 openai
 pydantic
 requests
-logging
-dotenv 
-typing
-traceback
+python-dotenv
