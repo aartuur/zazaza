@@ -52,7 +52,7 @@ const App = () => {
     {
       icon: <RocketLaunchIcon sx={{ color: COLORS.accent }} fontSize="large" />,
       title: 'Viral Tweet Generator',
-      link: "/figamaiala-generatore-di-cazzo-di-tweet-virali",
+      link: "/tweet-generator",
       description: 'Create viral tweets for your coin in just one click!',
     },
     {
