@@ -54,6 +54,7 @@ function MemeGenerator() {
         try {
             const response = await fetch(`https://zazaza-6.onrender.com/meme-generator/`, {
                 method: 'POST',
+                credentials:"include",
                 headers: {
                     'Content-Type': 'application/json',
                 },
