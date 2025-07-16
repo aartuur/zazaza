@@ -15,7 +15,7 @@ createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/figamaiala-generatore-di-cazzo-di-tweet-virali" element={<TweetsGenerator />} />
+          <Route path="/tweet-generator" element={<TweetsGenerator />} />
           <Route path="/meme-generator" element={<MemeGenerator />} />
         </Routes>
       </BrowserRouter>
