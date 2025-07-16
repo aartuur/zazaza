@@ -48,18 +48,18 @@ const App = () => {
       icon: <RocketLaunchIcon sx={{ color: COLORS.accent }} fontSize="large" />,
       title: 'Viral Tweet Generator',
       link: "/figamaiala-generatore-di-cazzo-di-tweet-virali",
-      description: 'Crea tweet virali e coinvolgenti con un click!',
+      description: 'Create viral tweets for your coin in just one click!',
     },
     {
       icon: <Market sx={{ color: COLORS.subtext }} fontSize="large" />,
       title: 'Viral Meme Generator',
       link: "/meme-generator",
-      description: 'Crea dei meme divertenti su meme ed immagini da te specificati 🤑 ',
+      description: 'Create funny memes based on your coin 🤑 ',
     },
     {
       icon: <MovieIcon sx={{ color: COLORS.subtext }} fontSize="large" />,
-      title: 'Creatore di TikTok spakkosi',
-      description: 'Genera idee e script per TikTok che fanno boom 💥',
+      title: 'In development...',
+      description: 'Still under development... 💥',
     },
   ];
 
