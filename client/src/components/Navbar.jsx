@@ -35,7 +35,7 @@ const Navbar = () => {
                         target='_blank'
                     >
                         {/* Versione abbreviata per mobile */}
-                        <Box sx={{translate:"-15% 0"}}>
+                        <Box sx={{translate:isMobile && "-15% 0"}}>
                             <FuzzyText
                                 baseIntensity={0.15}
                                 hoverIntensity={0.3}
