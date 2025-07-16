@@ -12,6 +12,7 @@ import {
   Avatar,
   Container,
   Paper,
+  Divider,
 } from '@mui/material';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import MovieIcon from '@mui/icons-material/Movie';
@@ -35,13 +36,10 @@ import Hero from './components/Hero';
 import wow from "./assets/wow.png"
 import money from "./assets/money.png"
 import ProfileCard from './components/ProfileCard';
+import boi from './assets/boi.png'
+import Footer from './components/Footer';
 
-
-const getRandomPalette = () => {
-  return palettes[Math.floor(Math.random() * palettes.length)];
-};
-
-export const COLORS = getRandomPalette();
+export const COLORS = palettes
 
 const App = () => {
 
@@ -112,7 +110,7 @@ const App = () => {
           />
         </Box>
 
-        <Container maxWidth="lg" sx={{ height: "200vh", width: "100vw", zIndex: 1, position: 'relative', mb: 30 }}>
+        <Container maxWidth="lg" sx={{ height: "200vh", width: "100vw", zIndex: 1, position: 'relative', mb: 15 }}>
           {/* Titoli animati */}
           <Box display="flex" alignItems="center" justifyContent="space-between">
 
@@ -123,7 +121,7 @@ const App = () => {
                 gap: 2,
                 mt: 10,
                 height: "100vh",
-                mb: 25,
+                mb: 30,
                 textAlign: 'left',
               }}
             >
@@ -136,8 +134,8 @@ const App = () => {
                 flexWrap: 'wrap',
                 justifyContent: 'center',
                 gap: 4,
-                translate: "0 -70px",
-                mb: 10,
+                translate: "0 -100px",
+                mb: 14,
               }}
             >
               <CardsGrid cardData={cardData} />
@@ -150,10 +148,21 @@ const App = () => {
 
         </Container >
 
-        <Box display="flex" alignItems="center" justifyContent="space-between" width="70%">
-          <Box>
-            <Typography>ZA ZA ZA ZA SAHUR</Typography>
-          </Box>
+        <Box
+          sx={{
+            width: '100%',
+            backgroundColor: COLORS.black,
+            py: 12,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
+            gap: 6,
+            mb:20,
+            textAlign: "center",
+            flexWrap: 'wrap',
+            px: 4,
+          }}
+        >
           <ProfileCard
             name="Za Za Za Sahur"
             title="Best & Highest memecoin"
@@ -166,8 +175,45 @@ const App = () => {
             enableTilt={true}
             onContactClick={() => window.location.replace("https://x.com/CommunyTrip")}
           />
+          <Box sx={{ maxWidth: 500, flex: 1 }}>
+
+            <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: COLORS.accent }}>
+              Everyone’s hunting the next 100x — but let’s be real, most are just chasing shadows.
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 3 }}>
+              Enter <strong style={{ color: COLORS.accent }}>$ZZZSHR's world</strong>: not your average memecoin, but the <i>only</i> one bold enough to flex on the entire market while holding a cigar. 🚬
+              <br /><br />
+              Whether you're ready to ride this rocket to the moon, survive a zombie apocalypse of rug pulls, or just vibe with the <strong style={{ color: COLORS.accent }}>highest meme royalty</strong>, you're in the right place. This isn’t just a token, it’s a movement — and you’re either in or left explaining to your friends why you missed out.
+              <br /><br />
+              <strong style={{ color: COLORS.subtext }}>Community? Strong. Memes? Sharper than ever. Potential? Don’t make us laugh — it’s inevitable.</strong>
+            </Typography>
+            <Box
+              component={Link}
+              to="/learn-more"
+              sx={{
+                display: 'inline-block',
+                backgroundColor: COLORS.accent,
+                color: COLORS.text,
+                px: 3,
+                py: 1.5,
+                borderRadius: 2,
+                textDecoration: 'none',
+                fontWeight: 'bold',
+                transition: 'background-color 0.3s',
+                '&:hover': {
+                  backgroundColor: COLORS.subtext,
+                },
+              }}
+            >
+              LEARN MORE
+            </Box>
+          </Box>
+
         </Box>
+
+        <Footer />
       </Box >
+
 
     </>
   );
