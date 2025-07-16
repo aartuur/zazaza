@@ -7,7 +7,7 @@ app = FastAPI(title="Tweet Generator API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  #per ora accesso totale, dopo blocca
+    allow_origins=["https://zazazasahur-gamma.vercel.app"],  #per ora accesso totale, dopo blocca
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
