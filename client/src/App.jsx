@@ -58,8 +58,8 @@ const App = () => {
     },
     {
       icon: <MovieIcon sx={{ color: COLORS.subtext }} fontSize="large" />,
-      title: 'In development...',
-      description: 'Still under development... 💥',
+      title: 'Under development...',
+      description: 'Section coming soon ... 💥',
     },
   ];
 
