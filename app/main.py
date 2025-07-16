@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import tweets
-from .routers import meme
+from routers import tweets
+from routers import meme
 
 app = FastAPI(title="Tweet Generator API")
 
